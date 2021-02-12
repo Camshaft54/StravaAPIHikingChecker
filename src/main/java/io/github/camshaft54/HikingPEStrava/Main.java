@@ -130,7 +130,7 @@ public class Main {
     }
 
     public static void printClubActivityFulfillment() throws IOException, ParseException {
-        URL url = new URL("https://www.strava.com/api/v3/clubs/738984/activities?per_page=18&access_token=ENTERACCESSTOKENHERE");
+        URL url = new URL("https://www.strava.com/api/v3/clubs/CLUBIDHERE/activities?per_page=18&access_token=ENTERACCESSTOKENHERE");
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
         System.out.println("Page downloaded.");
         JSONArray activities = (JSONArray) new JSONParser().parse(reader.readLine());
