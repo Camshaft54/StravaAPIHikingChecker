@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Success</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="info">
+        <p>Successfully authorized your Strava Account!
+            Please copy the following text and send it:</p>
+    </div>
+    <p id="code"></p>
+    <script>
+        let code = window.location.href.split("?")
+        document.getElementById("code").innerHTML = code[1]
+    </script>
+</body>
+</html>

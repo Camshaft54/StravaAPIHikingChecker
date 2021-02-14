@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
         BufferedReader br = new BufferedReader(new FileReader("clientConfig.txt"));
         long clientId = Long.parseLong(br.readLine().split(": ")[1]);
-        String clientSecret = br.readLine();
+        String clientSecret = br.readLine().split(": ")[1];
 
         Scanner scan = new Scanner(System.in);
         System.out.print("Enter \"1\" to check PE, enter \"2\" to submit refresh code: ");
@@ -60,10 +60,15 @@ public class Main {
 
     public static void writeRefreshCodesToFile() throws IOException {
         HashMap<String, String[]> refreshCodesFromFile = readRefreshCodesFromFile();
+        BufferedReader br = new BufferedReader(new FileReader("refreshCodes.txt"));
         BufferedWriter bf = new BufferedWriter(new FileWriter("refreshCodes.txt", true));
         for (String id : refreshCodes.keySet()) {
-            if (!refreshCodesFromFile.containsKey(id))
+            if (!refreshCodesFromFile.containsKey(id)) {
+                if (br.readLine() != null) {
+                    bf.write("\n");
+                }
                 bf.write(id + ": " + refreshCodes.get(id)[0] + ", " + refreshCodes.get(id)[1]);
+            }
         }
         bf.close();
     }
