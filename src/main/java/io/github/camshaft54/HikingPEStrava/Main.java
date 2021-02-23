@@ -54,7 +54,11 @@ public class Main {
         epochTime = epochTime.substring(0, epochTime.length()-3);
         for (String id : refreshCodes.keySet()) {
             String accessToken = getAccessToken(clientId, clientSecret, refreshCodes.get(id)[1]);
-            System.out.println(refreshCodes.get(id)[0] + ": " + getActivityTimeSinceTime(accessToken, epochTime));
+            long time = getActivityTimeSinceTime(accessToken, epochTime);
+            long hours = time / 3600;
+            long minutes = time / 60 - time / 3600 * 60;
+            long seconds = time - time / 60 * 60;
+            System.out.println(refreshCodes.get(id)[0] + ": " + (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds));
         }
     }
 
@@ -129,7 +133,7 @@ public class Main {
         long totalTime = 0;
         for (Object obj : activities) {
             JSONObject activity = (JSONObject) new JSONParser().parse(obj.toString());
-            totalTime += (Long) activity.get("moving_time");
+            totalTime += (Long) activity.get("elapsed_time");
         }
         return totalTime;
     }
